@@ -1,0 +1,33 @@
+#!/bin/sh
+
+echo ""
+echo "======================================"
+echo " Executando testes antes do Git Push"
+echo "======================================"
+echo ""
+
+if command -v php >/dev/null 2>&1; then
+    PHP_BIN="php"
+elif [ -x "/c/Users/santa/.config/herd/bin/php85/php.exe" ]; then
+    PHP_BIN="/c/Users/santa/.config/herd/bin/php85/php.exe"
+else
+    echo "ERRO: PHP não encontrado!"
+    echo "Instale ou configure o PHP antes de enviar."
+    exit 1
+fi
+
+"$PHP_BIN" vendor/bin/pest
+
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "ERRO: Os testes falharam!"
+    echo "Push cancelado. Corrija os erros antes de enviar."
+    exit 1
+fi
+
+echo ""
+echo "Todos os testes passaram!"
+echo "Continuando com o Git Push..."
+echo ""
+
+exit 0

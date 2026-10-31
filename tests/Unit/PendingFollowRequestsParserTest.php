@@ -2,7 +2,6 @@
 <?php
 
 use App\Services\PendingFollowRequestsParser;
-use InvalidArgumentException;
 
 beforeEach(function () {
     $this->parser = new PendingFollowRequestsParser();
