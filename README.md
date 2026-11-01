@@ -1,58 +1,132 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Unfollow Checker
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A lightweight, privacy-focused web application designed to analyze your Instagram followers and following relationships to immediately spot who doesn't follow you back.
 
-## About Laravel
+## About the Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Unfollow Checker** is a high-performance Laravel application that securely compares your follower and following datasets, exported directly through Instagram's official data privacy panel. 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Instead of dealing with unstable or rule-breaking web scrapers, this tool allows users to upload their official JSON data exports to get immediate analytics, search filters, mutual connection tracking, and custom CSV data exports.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Privacy by Design & GDPR Compliance
 
-## Learning Laravel
+This project was intentionally engineered around **Privacy by Design** principles to ensure strict compliance with global data protection frameworks such as **GDPR (Europe)** and **LGPD (Brazil)**:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Zero Persistence:** The application does not use a database. User records are processed 100% *In-Memory* using fast Laravel Collections and instantly destroyed after the lifecycle of the request.
+- **No Instagram Login Required:** Your social credentials are completely safe. The app operates entirely isolated from Meta's authentication servers.
+- **Isolated Sandbox processing:** Files are analyzed strictly within ephemeral temporary upload directories.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Core Features
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- **Unfollow Tracking:** Instantly spot accounts you follow, but that do not follow you back.
+- **Mutual Followers:** View clean lists of reciprocal connections.
+- **Fans Directory:** Identify users who follow you, but you haven't followed back yet.
+- **Pending Outgoing Requests:** Keep track of follow requests you sent that are still waiting for approval.
+- **Multi-File Suppor:** Smart automated merging for chunked follower JSON files.
+- **Instant Search:** Full client-side/server-side filtering to search connections by username.
+- **CSV Data Exporting:** Download structured reports of your connection groups with a single click.
+- **Analytics Dashboard:** Clean UI presenting key statistics of your profile's social health.
 
-## Agentic Development
+##  Tech Stack
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- **Backend:** PHP 8.5+ & Laravel 13
+- **Frontend Architecture:** Alpine.js (Reactive States) & Blade Components
+- **Styling UI:** Tailwind CSS v4
+- **Build Asset Pipeline:** Vite
+- **Testing Suite:** Pest PHP Testing Framework
 
+##  How It Works (Algorithmic Logic)
+
+The software leverages efficient array mapping and set operations over official JSON data structures provided by Meta:
+
+| Result Target | Technical Computation (Laravel Collections) |
+|---|---|
+| **Not Following Back** | Computes the directional difference (`following` entries not matching `followers`). |
+| **Mutual Connections** | Computes the intersection subset of both datasets. |
+| **You Don't Follow Back** | Computes the directional difference (`followers` entries not matching `following`). |
+| **Pending Requests** | Isolated array mapping over `pending_follow_requests.json`. |
+
+##  Getting Started
+
+### Prerequisites
+
+Ensure you have the following environmental setups configured on your local machine:
+- PHP 8.3 or higher
+- Composer
+- Node.js & NPM
+
+### Local Installation
+
+1. Clone this repository:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+2. Navigate to the project root directory:
+```bash
+cd unfollow-checker
+```
 
-## Contributing
+3. Install PHP dependencies via Composer:
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. Install frontend node dependencies:
+```bash
+npm install
+```
 
-## Code of Conduct
+5. Setup your local environment file:
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. Generate your application security key:
+```bash
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+7. Compile asset builds:
+```bash
+npm run build
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+8. Start your local development server:
+```bash
+php artisan serve
+```
+
+The app will instantly launch and become available at `http://127.0.0.1:8000`.
+
+## Running Automated Tests
+
+Quality assurance and type safety are critical pillars of this codebase. The system relies on **Pest** for running quick, isolated feature and unit tests.
+
+To run the complete test suite, execute:
+```bash
+php vendor/bin/pest
+```
+
+### CI/CD Automation: Git Pre-Push Hook
+
+To ensure main branch stability, this repository features an active `.githooks/pre-push` script. The hook automatically executes your Pest test suite before any local code is successfully pushed upstream to GitHub. If a single test fails, the push is safely blocked.
+
+To activate this automated hook workflow locally post-cloning, execute:
+```bash
+git config core.hooksPath .githooks
+```
+
+## How to Extract Your Data from Instagram
+
+1. Go to your Instagram Settings and navigate to **Accounts Center > Your Information and Permissions > Download Your Information**.
+2. Request a download and ensure you select the **JSON format** option.
+3. Once you receive the email link, download and extract your profile ZIP archive.
+4. Locate the folder named `followers_and_following`.
+5. Upload your target files (e.g., `followers_1.json`, `following.json`, and `pending_follow_requests.json`) into the application dropzone to instantly query results.
+
+***Disclaimer:** Suspended, deactivated, or private sandbox restrictions on Meta's end can occasionally affect raw data exports. Always verify connection state variables live before taking definitive actions.*
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-source and ready for global community distribution.
