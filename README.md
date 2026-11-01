@@ -1,51 +1,57 @@
 # Unfollow Checker
 
-A lightweight, privacy-focused web application designed to analyze your Instagram followers and following relationships and identify accounts that don't follow you back.
+[**English**](README.md) | [Português](README.pt-BR.md)
 
-## &#x20;About the Project
+A web application to analyze Instagram follower and following relationships.
 
-**Unfollow Checker** is a Laravel application that compares follower and following data exported directly through Instagram's official data download feature.
+## Live Demo
 
-Instead of relying on web scrapers or Instagram credentials, users can upload their official JSON data exports to get organized results, search filters, mutual connection tracking, statistics, and CSV exports.
+Try the application: **[Unfollow Checker](http://3.137.136.158)**
 
-## &#x20;Privacy by Design
+## About the Project
 
-This project was designed with user privacy in mind, following Privacy by Design principles and considering data protection practices relevant to frameworks such as GDPR (Europe) and LGPD (Brazil).
+**Unfollow Checker** compares follower and following data exported directly from Instagram.
 
-- **No Database:** The application does not use a database to store Instagram data or comparison results.
-- **Temporary Processing:** Uploaded files are read from PHP temporary upload locations and are not permanently stored by the application.
-- **No Instagram Login Required:** Users never need to provide their Instagram credentials.
-- **No Instagram API Integration:** All analysis is performed using JSON files downloaded directly by the user.
+Instead of relying on web scrapers or requesting Instagram credentials, the application lets users upload their official JSON data exports and view organized results with search filters, statistics, and CSV exports.
 
-## &#x20;Core Features
+## Privacy
 
-- **Unfollow Tracking:** Identify accounts you follow that do not follow you back.
-- **Mutual Followers:** View accounts with reciprocal following relationships.
-- **Followers You Don't Follow Back:** Identify accounts that follow you but that you don't follow.
-- **Pending Outgoing Requests:** View follow requests that have not yet been accepted.
-- **Multi-File Support:** Upload and automatically combine multiple follower JSON files.
-- **Instant Search:** Filter results by username directly in the browser.
-- **CSV Export:** Download structured reports for each connection category.
-- **Analytics Dashboard:** View key statistics about your Instagram connections.
+This project was designed with user privacy in mind.
+
+- **No database:** the application does not use a database to store Instagram data or comparison results.
+- **Temporary processing:** uploaded files are read from PHP temporary upload locations and are not permanently stored by the application.
+- **No Instagram login required:** users never need to provide their Instagram credentials or connect their accounts.
+- **No Instagram API integration:** all analysis is performed using JSON files downloaded directly by the user.
+
+## Features
+
+- **Not Following Back:** identify accounts you follow that do not follow you back.
+- **Mutual Followers:** view accounts with reciprocal following relationships.
+- **Followers You Don't Follow Back:** identify accounts that follow you but that you don't follow.
+- **Pending Outgoing Requests:** view follow requests that have not yet been accepted.
+- **Multi-File Support:** upload and automatically combine multiple follower JSON files.
+- **Instant Search:** filter results by username directly in the browser.
+- **CSV Export:** download structured reports for each connection category.
+- **Analytics Dashboard:** view key statistics about your Instagram connections.
 
 ## Tech Stack
 
-- **Backend:** PHP 8.5 & Laravel 13
-- **Frontend:** Blade & Alpine.js
+- **Backend:** PHP 8.4+ and Laravel 13
+- **Frontend:** Blade and Alpine.js
 - **Styling:** Tailwind CSS 4
-- **Build Tool:** Vite
-- **Testing:** Pest PHP Testing Framework
+- **Build Tool:** Vite 8
+- **Testing:** Pest 4
 
 ## How It Works
 
-The application extracts and normalizes usernames from Instagram's official JSON export files, then compares the resulting datasets using set operations.
+The application extracts and normalizes usernames from Instagram's official JSON export files, then compares the resulting datasets.
 
-| Result                              | Description                                                                        |
-| ----------------------------------- | ---------------------------------------------------------------------------------- |
-| **Not Following Back**              | Accounts in your following list that are not in your followers list.               |
-| **Mutual Followers**                | Accounts present in both lists.                                                    |
-| **Followers You Don't Follow Back** | Accounts in your followers list that are not in your following list.               |
-| **Pending Requests**                | Outgoing follow requests extracted separately from `pending_follow_requests.json`. |
+| Result | Description |
+| --- | --- |
+| **Not Following Back** | Accounts in your following list that are not in your followers list. |
+| **Mutual Followers** | Accounts present in both lists. |
+| **Followers You Don't Follow Back** | Accounts in your followers list that are not in your following list. |
+| **Pending Requests** | Outgoing requests extracted separately from `pending_follow_requests.json`. |
 
 Pending requests are displayed separately and are not included in follower statistics.
 
@@ -55,9 +61,9 @@ Pending requests are displayed separately and are not included in follower stati
 
 Make sure you have the following installed:
 
-- PHP 8.3 or higher
+- PHP 8.4.1 or higher
 - Composer
-- Node.js and npm
+- Node.js 22 or higher and npm
 
 ### Local Installation
 
@@ -109,23 +115,23 @@ npm run build
 php artisan serve
 ```
 
-The application will be available at:
+The application will be available at **http://127.0.0.1:8000**.
 
-`http://127.0.0.1:8000`
+During development, you can also run `npm run dev` to watch frontend changes.
 
 ## Running Automated Tests
 
-The project uses **Pest** to run unit and feature tests.
+The project uses **Pest** for unit and feature tests.
 
-To execute the complete test suite:
+Run the complete test suite with:
 
 ```bash
-php vendor/bin/pest
+php artisan test
 ```
 
 ### Git Pre-Push Hook
 
-The repository includes a Git `pre-push` hook that automatically executes the Pest test suite before pushing changes to GitHub.
+The repository includes a Git `pre-push` hook that automatically runs the Pest test suite before pushing changes to GitHub.
 
 If any test fails, the push is blocked, helping prevent changes from being pushed with failing tests.
 
@@ -135,7 +141,7 @@ To enable the hook after cloning the repository, run:
 git config core.hooksPath .githooks
 ```
 
-## &#x20;How to Export Your Instagram Data
+## How to Export Your Instagram Data
 
 1. Open Instagram and go to **Accounts Center**.
 2. Navigate to **Your Information and Permissions > Download Your Information**.
@@ -153,4 +159,4 @@ Submit the files to analyze your Instagram connections.
 
 ## License
 
-No license has been specified yet.
+No license has been specified for this project yet.
